@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: budget-ai-api
+
+  datasource:
+    url: jdbc:h2:mem:budgetdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 25MB
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:demo-api-key}
+      chat:
+        options:
+          model: gpt-4o-mini
+          temperature: 0.2
+      audio:
+        transcription:
+          options:
+            model: whisper-1
+            language: pt
+            response-format: text
+        speech:
+          options:
+            model: tts-1
+            voice: alloy
+            response-format: mp3
+
+budget:
+  monthly-expense-limit: 5000.00
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
